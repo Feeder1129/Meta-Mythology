@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class CharacterLevelSystem : MonoBehaviour
 {
-    public int currentLevel = 9;
+    public int currentLevel = 1;
     public int currentExp = 0;
     public int expToNextLevel = 20;
 
