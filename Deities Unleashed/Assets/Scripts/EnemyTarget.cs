@@ -8,7 +8,8 @@ public class EnemyTarget : MonoBehaviour
     public float MinDmg;
     public float MaxDmg;
     public float Defense;
-
+    public int expgain;
+    public CharacterLevelSystem CLS;
     // Define the health of our target
 
     private int minLevel = 1;
@@ -33,8 +34,6 @@ public class EnemyTarget : MonoBehaviour
 
             // Assign the generated level to currentLevel
             Level = MonsterLvl;
-
-
             Stats();
         }
     }
@@ -136,6 +135,9 @@ public class EnemyTarget : MonoBehaviour
             MaxDmg = 12f + (5f * Level);
             Defense = 4f + (2f * Level);
         }
+
+        expgain = 2 + (2 * Level);
+
     }
 
     public void TakeDamage(float amount)
@@ -158,6 +160,7 @@ public class EnemyTarget : MonoBehaviour
     void Die()
     {
         // Destroy the game object when health reaches zero
+        CLS.GainExperience(expgain);
         Destroy(gameObject);
         Debug.Log("Dead");
     }

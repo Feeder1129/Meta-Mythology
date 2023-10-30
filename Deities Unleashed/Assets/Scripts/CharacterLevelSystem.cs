@@ -10,8 +10,8 @@ public class CharacterLevelSystem : MonoBehaviour
     public int expToNextLevel = 20;
 
     // Player stats
-    public int health = 100;
-    public int defense = 4;
+    public float health = 100;
+    public float defense = 4;
 
     // Function to gain experience points
     public void GainExperience(int expAmount)
