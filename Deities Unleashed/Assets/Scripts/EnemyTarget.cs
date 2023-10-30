@@ -54,7 +54,7 @@ public class EnemyTarget : MonoBehaviour
             Health = 20f + (10f * Level);
             MinDmg = 7f + (3f * Level);
             MaxDmg = 12f + (5f * Level);
-            Defense = 4f + (2f * Level);
+            Defense = 3f + (2f * Level);
         }
         else if (objectTag == "TikTik")
         {
@@ -71,7 +71,7 @@ public class EnemyTarget : MonoBehaviour
                 Level = 9;
             }
             Health = 30f + (10f * Level);
-            MinDmg = 10f + (3f * Level);
+            MinDmg = 13f + (3f * Level);
             MaxDmg = 20f + (5f * Level);
             Defense = 2f + (2f * Level);
         }
@@ -82,8 +82,8 @@ public class EnemyTarget : MonoBehaviour
             {
                 Level = 9;
             }
-            Health = 30f + (10f * Level);
-            MinDmg = 10f + (3f * Level);
+            Health = 10f + (10f * Level);
+            MinDmg = 9f + (3f * Level);
             MaxDmg = 10f + (5f * Level);
             Defense = 12f + (2f * Level);
         }
@@ -94,10 +94,10 @@ public class EnemyTarget : MonoBehaviour
             {
                 Level = 9;
             }
-            Health = 10f + (10f * Level);
+            Health = 20f + (10f * Level);
             MinDmg = 5f + (3f * Level);
             MaxDmg = 20f + (5f * Level);
-            Defense = 0f + (2f * Level);
+            Defense = -6f + (2f * Level);
         }
 
         else if (objectTag == "Cyclops")
@@ -119,8 +119,8 @@ public class EnemyTarget : MonoBehaviour
                 Level = 17;
             }
             Health = 30f + (10f * Level);
-            MinDmg = 10f + (3f * Level);
-            MaxDmg = 10f + (5f * Level);
+            MinDmg = 9f + (3f * Level);
+            MaxDmg = 5f + (5f * Level);
             Defense = 12f + (2f * Level);
         }
 
