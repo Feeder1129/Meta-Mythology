@@ -987,6 +987,8 @@ MonoBehaviour:
   MinDmg: 0
   MaxDmg: 0
   Defense: 0
+  expgain: 0
+  CLS: {fileID: 907346579}
 --- !u!1 &618836934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9cf00cc8260cf4aafa4d75b0fce8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 9
+  currentLevel: 1
   currentExp: 0
   expToNextLevel: 20
   health: 100
