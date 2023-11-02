@@ -8,12 +8,14 @@ public class Shoot : MonoBehaviour
     public Transform arrowSpawnPoint;
     public GameObject arrowPrefab;    
     public Button attackButton;
-    private AudioSource ShootSound;
-    private bool isOnCooldown = false;
-    private float cooldownDuration = 3.0f;
-    [SerializeField] float arrowSpeed = 10;
+    public AudioSource ShootSound;
+    public bool isOnCooldown = false;
+    public float cooldownDuration = 2.0f;
+    [SerializeField] float arrowSpeed = 30;
 
-    private void Start()
+    private bool canShoot = true;
+
+    void Start()
     {
         // Find the AttackButton by its name and attach the ShootArrow method to its click event
         ShootSound = GetComponent<AudioSource>();
@@ -22,9 +24,9 @@ public class Shoot : MonoBehaviour
         
     }
 
-    private void OnAttackButtonClick()
+    public void OnAttackButtonClick()
     {
-        if (!isOnCooldown)
+        if (canShoot && !isOnCooldown)
         {
             ShootArrow();
             StartCoroutine(StartCooldown());
@@ -32,17 +34,22 @@ public class Shoot : MonoBehaviour
     }
 
     // Update is called once per frame
-    void ShootArrow()
+    public void ShootArrow()
     {
         ShootSound.Play();
         var arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
         arrow.GetComponent<Rigidbody>().velocity = arrowSpawnPoint.forward * arrowSpeed;
     }
 
-    private IEnumerator StartCooldown()
+    public IEnumerator StartCooldown()
     {
         isOnCooldown = true;
         yield return new WaitForSeconds(cooldownDuration);
         isOnCooldown = false;
+    }
+
+    public void SetCanShoot(bool value)
+    {
+        canShoot = value;
     }
 }
