@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    public CharacterLevelSystem CS;
     [SerializeField] float life = 10;
-    [SerializeField] int minDamage = 5; // Minimum damage
-    [SerializeField] int maxDamage = 15; // Maximum damage
+    [SerializeField] int minDamage; // Minimum damage
+    [SerializeField] int maxDamage; // Maximum damage
     [SerializeField] float range = 100f;
     [SerializeField] float impactForce = 40f;
 
@@ -17,11 +18,25 @@ public class Arrow : MonoBehaviour
 
     void Awake()
     {
+        // Find the "Player" GameObject and get the attached "CharacterLevelSystem" script
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            CS = player.GetComponent<CharacterLevelSystem>();
+        }
+        else
+        {
+            Debug.LogError("Player GameObject not found. Make sure the GameObject is named 'Player' and has the 'CharacterLevelSystem' script attached.");
+        }
+
         Destroy(gameObject, life);
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        minDamage = 2 + (3 * CS.currentLevel);
+        maxDamage = 10 + (5 * CS.currentLevel);
+        Debug.Log("" +minDamage +" & " +maxDamage);
         // Check if damage has already been applied
         if (damageApplied)
             return;
@@ -31,7 +46,7 @@ public class Arrow : MonoBehaviour
 
         // Generate a random number between 1 and 10 for critical hit
         int criticalRoll = Random.Range(1, 11);
-        Debug.Log("Critical:" + criticalRoll);
+        Debug.Log("Critical: " + criticalRoll);
         // Check for a critical hit (e.g., if the roll is 5, add 1000 damage)
         if (criticalRoll == 5)
         {

@@ -9,7 +9,6 @@ public class EnemyTarget : MonoBehaviour
     public float MaxDmg;
     public float Defense;
     public int expgain;
-    public CharacterLevelSystem CLS;
     // Define the health of our target
 
     private int minLevel = 1;
@@ -160,7 +159,7 @@ public class EnemyTarget : MonoBehaviour
     void Die()
     {
         // Destroy the game object when health reaches zero
-        CLS.GainExperience(expgain);
+        CS.GainExperience(expgain);
         Destroy(gameObject);
         Debug.Log("Dead");
     }
