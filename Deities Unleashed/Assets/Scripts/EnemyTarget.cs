@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyTarget : MonoBehaviour
 {
+    public GameObject Pref;
     public CharacterLevelSystem CS;
     public int Level;
     public float Health;
@@ -154,7 +155,31 @@ public class EnemyTarget : MonoBehaviour
         {
             Die();
         }
+
+        //Floating Damage
+        FloatingText();
+
     }
+
+
+    void FloatingText()
+    {
+        // Calculate a random position around the enemy within a specified range
+        float xRange = Random.Range(-1.0f, 1.0f); // Adjust the range as needed
+        float zRange = Random.Range(-1.0f, 1.0f); // Adjust the range as needed
+
+        Vector3 randomOffset = new Vector3(xRange, 2f, zRange); // Adjust the '2f' value for vertical offset.
+
+        Vector3 textPosition = transform.position + randomOffset;
+
+        // Instantiate the damage text in the calculated random position
+        GameObject damageText = Instantiate(Pref, textPosition, Quaternion.identity);
+
+        // Destroy the damage text after 2 seconds
+        Destroy(damageText, 2.0f); // Adjust the time (2.0f) as needed.
+    }
+
+
 
     void Die()
     {
