@@ -5,13 +5,13 @@ using Random = UnityEngine.Random;
 
 public class CharacterLevelSystem : MonoBehaviour
 {
-    public int currentLevel = 9;
+    public int currentLevel = 1;
     public int currentExp = 0;
     public int expToNextLevel = 20;
 
     // Player stats
-    public int health = 100;
-    public int defense = 4;
+    public float health = 150;
+    public float defense = 4;
 
     // Function to gain experience points
     public void GainExperience(int expAmount)
@@ -71,7 +71,7 @@ public class CharacterLevelSystem : MonoBehaviour
     // Function to update player stats based on the level
     private void UpdatePlayerStats()
     {
-        health += 10; // Increase health by 10 for each level
+        health += 20; // Increase health by 10 for each level
         defense += 2; // Increase defense by 2 for each level
     }
 
