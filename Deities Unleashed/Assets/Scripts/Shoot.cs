@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour
 {
+    public CrossBowController crossBowController;
+
     public Transform arrowSpawnPoint;
     public GameObject arrowPrefab;    
     public Button attackButton;
     public AudioSource ShootSound;
     public bool isOnCooldown = false;
     public float cooldownDuration = 2.0f;
+
     [SerializeField] float arrowSpeed = 30;
 
     private bool canShoot = true;
@@ -21,7 +25,10 @@ public class Shoot : MonoBehaviour
         ShootSound = GetComponent<AudioSource>();
         attackButton = GameObject.Find("AttackBtn").GetComponent<Button>();
         attackButton.onClick.AddListener(OnAttackButtonClick);
-        
+
+        crossBowController = GetComponentInChildren<CrossBowController>(); // Assuming you have a SpriteRenderer on your Crossbow object
+        UpdateButtonIcon();
+
     }
 
     public void OnAttackButtonClick()
@@ -51,5 +58,11 @@ public class Shoot : MonoBehaviour
     public void SetCanShoot(bool value)
     {
         canShoot = value;
+    }
+
+    public void UpdateButtonIcon()
+    {
+        crossBowController.SetCrossBowState(canShoot, isOnCooldown);
+
     }
 }
