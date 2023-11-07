@@ -157,12 +157,12 @@ public class EnemyTarget : MonoBehaviour
         }
 
         //Floating Damage
-        FloatingText();
+        DisplayFloatingDamage(a);
 
     }
 
 
-    void FloatingText()
+    void DisplayFloatingDamage(float damageAmount)
     {
         // Calculate a random position around the enemy within a specified range
         float xRange = Random.Range(-1.0f, 1.0f); // Adjust the range as needed
@@ -174,6 +174,13 @@ public class EnemyTarget : MonoBehaviour
 
         // Instantiate the damage text in the calculated random position
         GameObject damageText = Instantiate(Pref, textPosition, Quaternion.identity);
+
+        // Access the Popup component of the instantiated object and set the damage value
+        Popup popup = damageText.GetComponent<Popup>();
+        if (popup != null)
+        {
+            popup.Setup((int)damageAmount);
+        }
 
         // Destroy the damage text after 2 seconds
         Destroy(damageText, 2.0f); // Adjust the time (2.0f) as needed.
