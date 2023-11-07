@@ -9,35 +9,37 @@ public class WeaponSwitch : MonoBehaviour
 
     [SerializeField] GameObject slot1;
     [SerializeField] GameObject slot2;
-    public Button SwitchButton;
-    private int currentWeapon = 1;
+
+    public Button CrossBowButton;
+    public Button SwordButton;
+    public int currentWeapon = 0;
 
     void Start()
     {
-        // Find the SwitchButton by its name and attach the OnSwitchButtonClick method to its click event
-        SwitchButton = GameObject.Find("SwitchBtn").GetComponent<Button>();
-        SwitchButton.onClick.AddListener(OnSwitchButtonClick);
+        // Attach the OnSwitchButtonClick method to the button click events
+        CrossBowButton.onClick.AddListener(SwitchToCrossbow);
+        SwordButton.onClick.AddListener(SwitchToSword);
 
         // Initially equip the first weapon
+        SwitchToCrossbow(); // Assuming you want the CrossBow as the initial weapon
+    }
+
+    void SwitchToCrossbow()
+    {
+        if (currentWeapon == 1)
+            return; // If it's already the current weapon, do nothing
+
+        currentWeapon = 1;
         Equip1();
     }
 
-    void OnSwitchButtonClick()
+    void SwitchToSword()
     {
-        // Handle the button click event to switch weapons
-        currentWeapon = (currentWeapon == 1) ? 2 : 1;
+        if (currentWeapon == 2)
+            return; // If it's already the current weapon, do nothing
 
-
-        // Equip the appropriate weapon based on the currentWeapon value
-        switch (currentWeapon)
-        {
-            case 1:
-                Equip1();
-                break;
-            case 2:
-                Equip2();
-                break;
-        }
+        currentWeapon = 2;
+        Equip2();
     }
 
     void Equip1()
