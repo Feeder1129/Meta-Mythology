@@ -1,7 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyTarget : MonoBehaviour
 {
+    private Animator anim;
+    public AudioSource deathSound;
     public GameObject Pref;
     public CharacterLevelSystem CS;
     public int Level;
@@ -19,6 +24,9 @@ public class EnemyTarget : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<Animator>();
+        deathSound = GetComponent<AudioSource>();
+
         Debug.Log("Health: " + Health);
         // Ensure CS is not null
         if (CS != null)
@@ -153,7 +161,9 @@ public class EnemyTarget : MonoBehaviour
         Debug.Log("Remaining Health: " + Health);
         if (Health <= 0)
         {
-            Die();
+            deathSound.Play();
+            anim.SetTrigger("death");
+            Invoke("Die", 1.0f);//delay
         }
 
         //Floating Damage
@@ -190,8 +200,11 @@ public class EnemyTarget : MonoBehaviour
 
     void Die()
     {
+        
         // Destroy the game object when health reaches zero
         CS.GainExperience(expgain);
+
+        
         Destroy(gameObject);
         Debug.Log("Dead");
     }
