@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class EnemyTarget : MonoBehaviour
 {
+    public Popup pop;
     private Animator anim;
     public AudioSource deathSound;
     public GameObject Pref;
     public CharacterLevelSystem CS;
+
     public int Level;
     public float Health;
+    public float MaxHealth;
     public float MinDmg;
     public float MaxDmg;
     public float Defense;
@@ -19,7 +22,7 @@ public class EnemyTarget : MonoBehaviour
 
     private int minLevel = 1;
     private int maxLevel = 25;
-
+    [SerializeField] FloatingHealth healthbar;
 
 
     void Start()
@@ -42,6 +45,8 @@ public class EnemyTarget : MonoBehaviour
 
             // Assign the generated level to currentLevel
             Level = MonsterLvl;
+                    healthbar = GetComponentInChildren<FloatingHealth>();
+
             Stats();
         }
     }
@@ -145,7 +150,12 @@ public class EnemyTarget : MonoBehaviour
         }
 
         expgain = 2 + (2 * Level);
-
+        MaxHealth = Health;
+        if (healthbar != null)
+        {
+            pop.Lvl(Level);
+            healthbar.UpdateHealthBar(Health, MaxHealth);
+        }
     }
 
     public void TakeDamage(float amount)
@@ -168,6 +178,7 @@ public class EnemyTarget : MonoBehaviour
 
         //Floating Damage
         DisplayFloatingDamage(a);
+        healthbar.UpdateHealthBar(Health,MaxHealth);
 
     }
 
@@ -178,9 +189,9 @@ public class EnemyTarget : MonoBehaviour
         float xRange = Random.Range(-1.0f, 1.0f); // Adjust the range as needed
         float zRange = Random.Range(-1.0f, 1.0f); // Adjust the range as needed
 
-        Vector3 randomOffset = new Vector3(xRange, 2f, zRange); // Adjust the '2f' value for vertical offset.
+        Vector3 randomOffset = new Vector3(xRange, 0.5f, zRange); // Adjust the '0.5f' value for vertical offset.
 
-        Vector3 textPosition = transform.position + randomOffset;
+        Vector3 textPosition = transform.position + randomOffset + transform.forward * 2f; // Adjust the '2f' value for forward offset.
 
         // Instantiate the damage text in the calculated random position
         GameObject damageText = Instantiate(Pref, textPosition, Quaternion.identity);
@@ -195,6 +206,8 @@ public class EnemyTarget : MonoBehaviour
         // Destroy the damage text after 2 seconds
         Destroy(damageText, 2.0f); // Adjust the time (2.0f) as needed.
     }
+
+
 
 
 

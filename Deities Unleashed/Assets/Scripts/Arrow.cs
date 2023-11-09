@@ -47,8 +47,8 @@ public class Arrow : MonoBehaviour
         // Generate a random number between 1 and 10 for critical hit
         int criticalRoll = Random.Range(1, 11);
         Debug.Log("Critical: " + criticalRoll);
-        // Check for a critical hit (e.g., if the roll is 5, add 1000 damage)
-        if (criticalRoll == 5)
+        // Check for a critical hit (e.g., if the roll is 2, add 1000 damage)
+        if (criticalRoll == 2)
         {
             damage += 1000;
             Debug.Log("Critical Hit! Added 1000 damage.");
