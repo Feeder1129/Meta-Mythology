@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
+    public AttackButtonController attackButtonController;
+
     int totalWeapons = 1;
     public int currentWeaponIndex;
 
@@ -30,6 +32,13 @@ public class Weapon : MonoBehaviour
         SpearButton.onClick.AddListener(SwitchToSpear);
         BowButton.onClick.AddListener(SwitchToBow);
 
+        attackButtonController = FindObjectOfType<AttackButtonController>();
+
+        if (attackButtonController == null)
+        {
+            Debug.LogError("AttackButtonController not found in the scene!");
+        }
+
         totalWeapons = weaponHolder.transform.childCount;
         weapons = new GameObject[totalWeapons];
 
@@ -43,29 +52,29 @@ public class Weapon : MonoBehaviour
         currentWeapon = weapons[0];
         currentWeaponIndex = 0; 
     }
-
+    //switch to 1st weapon
     void SwitchToCrossbow()
     {
         SwitchWeapon(0);
     }
-
+    //switch to 2nd weapon
     void SwitchToSword()
     {
         SwitchWeapon(1);
     }
 
-    // Add a function to switch to Sword2
+    //switch to 3rd weapon
     void SwitchToSword2()
     {
         SwitchWeapon(2);
     }
 
-    // Add a function to switch to Spear
+    //switch to 4th weapon
     void SwitchToSpear()
     {
         SwitchWeapon(3);
     }
-
+    //switch to 5th weapon
     void SwitchToBow()
     {
         SwitchWeapon(4);
@@ -74,10 +83,15 @@ public class Weapon : MonoBehaviour
     // A generic function to switch to a weapon
     void SwitchWeapon(int newIndex)
     {
+        Debug.Log("Switching to weapon: " + newIndex);
+
         equipSound.Play();
         weapons[currentWeaponIndex].SetActive(false);
         currentWeaponIndex = newIndex;
         weapons[currentWeaponIndex].SetActive(true);
         currentWeapon = weapons[currentWeaponIndex];
+
+        attackButtonController.SwitchAttackButtons(newIndex);
+
     }
 }

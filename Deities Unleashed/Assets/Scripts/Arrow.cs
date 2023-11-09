@@ -8,8 +8,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] float life = 10;
     [SerializeField] int minDamage; // Minimum damage
     [SerializeField] int maxDamage; // Maximum damage
-    [SerializeField] float range = 100f;
-    [SerializeField] float impactForce = 40f;
+
 
     // Define the tags that the arrow should compare against
     private string[] targetTags = { "Phoenix", "Tiyanak", "BalBal", "TikTik", "Golem", "Wolf", "Cyclops", "ElectricGolem", "Eagle" };
