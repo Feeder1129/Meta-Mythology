@@ -21,15 +21,22 @@ public class Shoot : MonoBehaviour
 
     void Start()
     {
-        // Find the AttackButton by its name and attach the ShootArrow method to its click event
         ShootSound = GetComponent<AudioSource>();
         attackButton = GameObject.Find("AttackBtn").GetComponent<Button>();
         attackButton.onClick.AddListener(OnAttackButtonClick);
 
-        crossBowController = GetComponentInChildren<CrossBowController>(); // Assuming you have a SpriteRenderer on your Crossbow object
-        UpdateButtonIcon();
 
+        crossBowController = GetComponentInChildren<CrossBowController>(true);
+
+        if (crossBowController == null)
+        {
+            Debug.LogError("CrossBowController not found! Make sure it is attached to the GameObject.");
+            return;
+        }
+
+        UpdateButtonIcon();
     }
+
 
     public void OnAttackButtonClick()
     {

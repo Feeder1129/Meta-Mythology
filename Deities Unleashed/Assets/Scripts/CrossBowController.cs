@@ -15,6 +15,12 @@ public class CrossBowController : MonoBehaviour
 
     public void SetCrossBowState(bool canShoot, bool isOnCooldown)
     {
+        if (crossbowSpriteRenderer == null)
+        {
+            Debug.LogError("crossbowSpriteRenderer is null. Make sure it is properly assigned.");
+            return;
+        }
+
         if (canShoot && !isOnCooldown)
         {
             crossbowSpriteRenderer.sprite = IdleSprite;
@@ -24,6 +30,7 @@ public class CrossBowController : MonoBehaviour
             crossbowSpriteRenderer.sprite = AttackSprite;
         }
     }
+
 
     public void UpdateCrossBowSprite()
     {

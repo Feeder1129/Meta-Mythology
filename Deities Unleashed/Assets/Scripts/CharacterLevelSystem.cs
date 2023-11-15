@@ -8,7 +8,6 @@ public class CharacterLevelSystem : MonoBehaviour
     public int currentLevel = 1;
     public int currentExp = 0;
     public int expToNextLevel = 20;
-
     // Player stats
     public float health = 150;
     public float defense = 4;
@@ -30,6 +29,8 @@ public class CharacterLevelSystem : MonoBehaviour
         {
             Debug.Log("You've reached the maximum level (25) and can no longer gain experience.");
         }
+
+
     }
 
     // Function to level up

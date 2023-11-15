@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,15 +21,19 @@ public class Weapon : MonoBehaviour
 
     public AudioSource equipSound;
 
+    private bool canSwitchWeapon = true;
+    public float switchCooldownDuration = 30.0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        equipSound = GetComponent<AudioSource>();
-        CrossBowButton.onClick.AddListener(SwitchToCrossbow);
-        SwordButton.onClick.AddListener(SwitchToSword);
-        Sword2Button.onClick.AddListener(SwitchToSword2);
-        SpearButton.onClick.AddListener(SwitchToSpear);
-        BowButton.onClick.AddListener(SwitchToBow);
+        equipSound = GetComponent < AudioSource>();
+
+        CrossBowButton.onClick.AddListener(() => SwitchWeapon(0, CrossBowButton));
+        SwordButton.onClick.AddListener(() => SwitchWeapon(1, SwordButton));
+        Sword2Button.onClick.AddListener(() => SwitchWeapon(2, Sword2Button));
+        SpearButton.onClick.AddListener(() => SwitchWeapon(3, SpearButton));
+        BowButton.onClick.AddListener(() => SwitchWeapon(4, BowButton));
 
         attackButtonController = FindObjectOfType<AttackButtonController>();
 
@@ -42,7 +45,7 @@ public class Weapon : MonoBehaviour
         totalWeapons = weaponHolder.transform.childCount;
         weapons = new GameObject[totalWeapons];
 
-        for(int i = 0; i < totalWeapons; i++)
+        for (int i = 0; i < totalWeapons; i++)
         {
             weapons[i] = weaponHolder.transform.GetChild(i).gameObject;
             weapons[i].SetActive(false);
@@ -50,48 +53,49 @@ public class Weapon : MonoBehaviour
 
         weapons[0].SetActive(true);
         currentWeapon = weapons[0];
-        currentWeaponIndex = 0; 
-    }
-    //switch to 1st weapon
-    void SwitchToCrossbow()
-    {
-        SwitchWeapon(0);
-    }
-    //switch to 2nd weapon
-    void SwitchToSword()
-    {
-        SwitchWeapon(1);
+        currentWeaponIndex = 0;
     }
 
-    //switch to 3rd weapon
-    void SwitchToSword2()
+    void SwitchWeapon(int newIndex, Button button)
     {
-        SwitchWeapon(2);
+        if (canSwitchWeapon)
+        {
+            Debug.Log("Switching to weapon: " + newIndex);
+
+            equipSound.Play();
+            weapons[currentWeaponIndex].SetActive(false);
+            currentWeaponIndex = newIndex;
+            weapons[currentWeaponIndex].SetActive(true);
+            currentWeapon = weapons[currentWeaponIndex];
+
+            attackButtonController.SwitchAttackButtons(newIndex);
+
+            // Disable all buttons immediately
+            CrossBowButton.interactable = false;
+            SwordButton.interactable = false;
+            Sword2Button.interactable = false;
+            SpearButton.interactable = false;
+            BowButton.interactable = false;
+
+            StartCoroutine(StartSwitchCooldown());
+        }
+        else
+        {
+            Debug.Log("Cannot switch weapon. Still on cooldown.");
+        }
     }
 
-    //switch to 4th weapon
-    void SwitchToSpear()
+    IEnumerator StartSwitchCooldown()
     {
-        SwitchWeapon(3);
-    }
-    //switch to 5th weapon
-    void SwitchToBow()
-    {
-        SwitchWeapon(4);
-    }
+        yield return new WaitForSeconds(switchCooldownDuration);
 
-    // A generic function to switch to a weapon
-    void SwitchWeapon(int newIndex)
-    {
-        Debug.Log("Switching to weapon: " + newIndex);
+        // Enable all buttons after cooldown
+        CrossBowButton.interactable = true;
+        SwordButton.interactable = true;
+        Sword2Button.interactable = true;
+        SpearButton.interactable = true;
+        BowButton.interactable = true;
 
-        equipSound.Play();
-        weapons[currentWeaponIndex].SetActive(false);
-        currentWeaponIndex = newIndex;
-        weapons[currentWeaponIndex].SetActive(true);
-        currentWeapon = weapons[currentWeaponIndex];
-
-        attackButtonController.SwitchAttackButtons(newIndex);
-
+        canSwitchWeapon = true;
     }
 }

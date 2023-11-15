@@ -14,7 +14,7 @@ public class WeaponSwitch : MonoBehaviour
     public Button SwordButton;
     public int currentWeapon = 0;
 
-    void Start()
+    void Awake()
     {
         // Attach the OnSwitchButtonClick method to the button click events
         CrossBowButton.onClick.AddListener(SwitchToCrossbow);
@@ -24,7 +24,7 @@ public class WeaponSwitch : MonoBehaviour
         SwitchToCrossbow(); // Assuming you want the CrossBow as the initial weapon
     }
 
-    void SwitchToCrossbow()
+    public void SwitchToCrossbow()
     {
         if (currentWeapon == 1)
             return; // If it's already the current weapon, do nothing
@@ -32,6 +32,7 @@ public class WeaponSwitch : MonoBehaviour
         currentWeapon = 1;
         Equip1();
     }
+
 
     void SwitchToSword()
     {

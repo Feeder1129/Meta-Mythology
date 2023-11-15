@@ -28,6 +28,8 @@ public class AttackButtonController : MonoBehaviour
         // Add more conditions for other weapons if needed
         else
         {
+            attackButton1.gameObject.SetActive(true);
+            attackButton2.gameObject.SetActive(true);
             Debug.LogError("Invalid weapon index: " + currentWeaponIndex);
         }
     }
