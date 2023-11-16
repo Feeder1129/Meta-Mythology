@@ -8,6 +8,10 @@ public class AttackButtonController : MonoBehaviour
     public Button attackButton1;
     public Button attackButton2;
 
+    public void Start()
+    {
+        SwitchAttackButtons(0);
+    }
     // Call this function to switch the attack buttons
     public void SwitchAttackButtons(int currentWeaponIndex)
     {

@@ -26,7 +26,7 @@ public class Shoot : MonoBehaviour
         attackButton.onClick.AddListener(OnAttackButtonClick);
 
 
-        crossBowController = GetComponentInChildren<CrossBowController>(true);
+        crossBowController = FindObjectOfType<CrossBowController>(true);
 
         if (crossBowController == null)
         {

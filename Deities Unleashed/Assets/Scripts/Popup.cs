@@ -22,6 +22,7 @@ public class Popup : MonoBehaviour
         }
         else
         {
+            Damage = Damage * 100;
             TextMesh.SetText(Damage.ToString());
         }
     }
