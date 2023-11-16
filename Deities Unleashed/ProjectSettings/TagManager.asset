@@ -8,7 +8,6 @@ TagManager:
   - Phoenix
   - BalBal
   - TikTik
-  - Item
   layers:
   - Default
   - TransparentFX

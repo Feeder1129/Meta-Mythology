@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-   public int items { get; private set; }
-
-    public void Collected()
+    public void Attack()
     {
-        items++;
+        Debug.Log("Gumagana Attack");
     }
 }

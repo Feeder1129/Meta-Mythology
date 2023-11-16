@@ -6,9 +6,9 @@ public class EnemyChase : MonoBehaviour
 {
 
     public Transform Player;
-    [SerializeField] float MoveSpeed = 4;
-    [SerializeField] float MaxDist = 10;
-    [SerializeField] float MinDist = 5;
+    [SerializeField] int MoveSpeed = 4;
+    [SerializeField] int MaxDist = 10;
+    [SerializeField] int MinDist = 5;
 
 
     void Update()

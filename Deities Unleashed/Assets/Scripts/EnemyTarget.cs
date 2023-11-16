@@ -1,22 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class EnemyTarget : MonoBehaviour
 {
-    public ItemCollection Item;
-    public GameObject healthprefabs;
-
     public Popup pop;
     private Animator anim;
     public AudioSource deathSound;
     public GameObject Pref;
     public CharacterLevelSystem CS;
-
-    public BoxCollider boxCollider;
 
     public int Level;
     public float Health;
@@ -30,7 +23,6 @@ public class EnemyTarget : MonoBehaviour
     private int minLevel = 1;
     private int maxLevel = 25;
     [SerializeField] FloatingHealth healthbar;
-
 
 
     void Start()
@@ -221,15 +213,13 @@ public class EnemyTarget : MonoBehaviour
 
     void Die()
     {
-        Destroy(healthprefabs);
+        
+        // Destroy the game object when health reaches zero
         CS.GainExperience(expgain);
 
-        // Deactivate the BoxCollider
-        if (boxCollider != null) boxCollider.enabled = false;
-
+        
+        Destroy(gameObject);
         Debug.Log("Dead");
-
-        Item.RespawnItem();
     }
 
 
