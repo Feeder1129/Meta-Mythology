@@ -11,11 +11,18 @@ public class ItemCollection : MonoBehaviour
     public GameObject enemyToDestroy;
 
     public Inventory inventory;
+    public AudioSource collectSound;
 
+    public void Start()
+    {
+        collectSound = GetComponent<AudioSource>();
+    }
     private void OnTriggerEnter(Collider other)
     {
+        collectSound.Play();
         if (other.CompareTag("Player"))
         {
+            
             Debug.Log("COLLECTED");
             OnCollected?.Invoke();
             

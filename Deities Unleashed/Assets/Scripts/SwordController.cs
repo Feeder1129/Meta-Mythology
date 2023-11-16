@@ -81,7 +81,7 @@ public class SwordController : MonoBehaviour
     void DealDamage(int damage)
     {
         // Check for collision with enemies
-        Collider[] hitColliders = Physics.OverlapSphere(sword.transform.position, sword.GetComponent<BoxCollider>().size.x/1.5f);
+        Collider[] hitColliders = Physics.OverlapSphere(sword.transform.position, sword.GetComponent<BoxCollider>().size.x/1f);
 
         foreach (Collider collision in hitColliders)
         {

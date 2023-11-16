@@ -26,6 +26,18 @@ public class Shoot : MonoBehaviour
         attackButton.onClick.AddListener(OnAttackButtonClick);
 
 
+        crossBowController = GetComponentInChildren<CrossBowController>(true);
+
+        if (crossBowController == null)
+        {
+            Debug.LogError("CrossBowController not found! Make sure it is attached to the GameObject.");
+            return;
+        }
+
+        UpdateButtonIcon();
+        
+
+
         crossBowController = FindObjectOfType<CrossBowController>(true);
 
         if (crossBowController == null)
