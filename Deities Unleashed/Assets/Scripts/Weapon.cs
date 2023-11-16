@@ -18,11 +18,10 @@ public class Weapon : MonoBehaviour
     public Button Sword2Button;
     public Button SpearButton;
     public Button BowButton;
-
     public AudioSource equipSound;
 
     private bool canSwitchWeapon = true;
-    public float switchCooldownDuration = 30.0f;
+    public float switchCooldownDuration = 20.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -87,7 +86,13 @@ public class Weapon : MonoBehaviour
 
     IEnumerator StartSwitchCooldown()
     {
+        // Call the Cooldown method from the Popup script
+
+        // Wait for the specified cooldown duration
         yield return new WaitForSeconds(switchCooldownDuration);
+
+        // Reset the text to nothing after the cooldown
+        
 
         // Enable all buttons after cooldown
         CrossBowButton.interactable = true;
@@ -98,4 +103,5 @@ public class Weapon : MonoBehaviour
 
         canSwitchWeapon = true;
     }
+
 }

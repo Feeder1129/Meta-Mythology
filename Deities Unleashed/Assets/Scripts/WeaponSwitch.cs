@@ -26,20 +26,20 @@ public class WeaponSwitch : MonoBehaviour
 
     public void SwitchToCrossbow()
     {
-        if (currentWeapon == 1)
+        if (currentWeapon == 0)
             return; // If it's already the current weapon, do nothing
 
-        currentWeapon = 1;
+        currentWeapon = 0;
         Equip1();
     }
 
 
     void SwitchToSword()
     {
-        if (currentWeapon == 2)
+        if (currentWeapon == 1)
             return; // If it's already the current weapon, do nothing
 
-        currentWeapon = 2;
+        currentWeapon = 1;
         Equip2();
     }
 

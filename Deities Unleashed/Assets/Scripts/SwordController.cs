@@ -35,12 +35,6 @@ public class SwordController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // You can add additional logic here if needed
-    }
-
     public void OnClickSwordAttack()
     {
         if (canAttack)
@@ -86,9 +80,35 @@ public class SwordController : MonoBehaviour
 
     void DealDamage(int damage)
     {
-        // Code for dealing damage to enemies goes here
-        // You can add the collision and damage logic here
+        // Check for collision with enemies
+        Collider[] hitColliders = Physics.OverlapSphere(sword.transform.position, sword.GetComponent<BoxCollider>().size.x/1.5f);
+
+        foreach (Collider collision in hitColliders)
+        {
+            bool isTarget = false;
+
+            foreach (string targetTag in targetTags)
+            {
+                if (collision.gameObject.CompareTag(targetTag))
+                {
+                    isTarget = true;
+                    break;
+                }
+            }
+
+            if (isTarget)
+            {
+                EnemyTarget enemyDamageReceiver = collision.gameObject.GetComponent<EnemyTarget>();
+                if (enemyDamageReceiver != null)
+                {
+                    enemyDamageReceiver.TakeDamage(damage);
+                    Debug.Log("Applied Damage: " + damage);
+                    // Additional logic can be added here if needed
+                }
+            }
+        }
     }
+
 
     IEnumerator StartCooldown()
     {

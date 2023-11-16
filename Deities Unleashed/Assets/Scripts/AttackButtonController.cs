@@ -29,7 +29,7 @@ public class AttackButtonController : MonoBehaviour
         else
         {
             attackButton1.gameObject.SetActive(true);
-            attackButton2.gameObject.SetActive(true);
+            attackButton2.gameObject.SetActive(false);
             Debug.LogError("Invalid weapon index: " + currentWeaponIndex);
         }
     }
