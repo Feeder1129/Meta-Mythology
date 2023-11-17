@@ -1,15 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class EnemyTarget : MonoBehaviour
 {
+    public ItemCollection Item;
+    public GameObject healthprefabs;
+
     public Popup pop;
     private Animator anim;
     public AudioSource deathSound;
     public GameObject Pref;
     public CharacterLevelSystem CS;
+
+    public BoxCollider boxCollider1;
+
+
+
+    public BoxCollider boxCollider;
 
     public int Level;
     public float Health;
@@ -45,7 +56,7 @@ public class EnemyTarget : MonoBehaviour
 
             // Assign the generated level to currentLevel
             Level = MonsterLvl;
-                    healthbar = GetComponentInChildren<FloatingHealth>();
+            healthbar = GetComponentInChildren<FloatingHealth>();
 
             Stats();
         }
@@ -178,7 +189,7 @@ public class EnemyTarget : MonoBehaviour
 
         //Floating Damage
         DisplayFloatingDamage(a);
-        healthbar.UpdateHealthBar(Health,MaxHealth);
+        healthbar.UpdateHealthBar(Health, MaxHealth);
 
     }
 
@@ -213,17 +224,26 @@ public class EnemyTarget : MonoBehaviour
 
     void Die()
     {
-        
+
+        // Deactivate the BoxCollider
+        if (boxCollider1 != null) boxCollider1.enabled = false;
+
+        Destroy(healthprefabs);
         // Destroy the game object when health reaches zero
+        Destroy(healthprefabs);
         CS.GainExperience(expgain);
 
-        
+
+
         Destroy(gameObject);
+
+        // Deactivate the BoxCollider
+        if (boxCollider != null) boxCollider.enabled = false;
+
         Debug.Log("Dead");
+
+        Item.RespawnItem();
     }
 
 
 }
-
-
-
