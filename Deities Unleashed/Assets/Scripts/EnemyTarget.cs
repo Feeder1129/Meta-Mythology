@@ -16,6 +16,10 @@ public class EnemyTarget : MonoBehaviour
     public GameObject Pref;
     public CharacterLevelSystem CS;
 
+    public BoxCollider boxCollider1;
+
+
+
     public BoxCollider boxCollider;
 
     public int Level;
@@ -30,7 +34,6 @@ public class EnemyTarget : MonoBehaviour
     private int minLevel = 1;
     private int maxLevel = 25;
     [SerializeField] FloatingHealth healthbar;
-
 
 
     void Start()
@@ -221,8 +224,18 @@ public class EnemyTarget : MonoBehaviour
 
     void Die()
     {
+        
+        // Deactivate the BoxCollider
+        if (boxCollider1 != null) boxCollider1.enabled = false;
+
+        Destroy(healthprefabs);
+        // Destroy the game object when health reaches zero
         Destroy(healthprefabs);
         CS.GainExperience(expgain);
+
+        
+
+        Destroy(gameObject);
 
         // Deactivate the BoxCollider
         if (boxCollider != null) boxCollider.enabled = false;

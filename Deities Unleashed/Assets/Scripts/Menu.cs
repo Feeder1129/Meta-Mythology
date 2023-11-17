@@ -20,11 +20,15 @@ public class Menu : MonoBehaviour
     {
         buttonSound.Play();
         SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(1);
+        buttonSound.Play();
+        SceneManager.LoadSceneAsync(2);
         Debug.Log("NEW GAME");
     }
 
     public void Load_Saved_Scene()
     {
+        Debug.Log("LoadGame");
         Saved_scene = PlayerPrefs.GetInt("Saved");
 
         if (Saved_scene != 0)
@@ -39,7 +43,7 @@ public class Menu : MonoBehaviour
         Scene_index = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("Saved", Scene_index);
         PlayerPrefs.Save();
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync(1);
     }
 
     public void Next_Scene()
